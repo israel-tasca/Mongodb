@@ -39,7 +39,7 @@ namespace mONGOdb
             colNews.InsertOne(doc);
 
 
-            //pesquisar
+            //editar
             Expression<Func<Postagem, bool>> filter =
                 x => x.Id.Equals(ObjectId.Parse("594b093325841c1b6cac28ea"));
 
@@ -49,6 +49,10 @@ namespace mONGOdb
                 news.Value = 200d;
                 ReplaceOneResult result = colNews.ReplaceOne(filter, news);
             }
+
+            //pesquisar
+            filter = x => x.Title.Contains("s");
+            IList<Postagem> items = colNews.Find(filter).ToList();
 
             //apagar
             filter = x => x.Id.Equals(ObjectId.Parse("594b093325841c1b6cac28ea"));
